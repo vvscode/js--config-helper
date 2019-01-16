@@ -12,7 +12,7 @@ const pRequest = (options) => new Promise((resolve, reject) => request(options, 
 
 const files = glob.sync('input/**/*.json5');
 
-(async () => files.forEach(async(fileName) => {
+(async () => files.filter(fileName => !fileName.match('input/example/')).forEach(async(fileName) => {
     console.log(`[=] Processing "${fileName}"`);
     try {
       const requestOptions = require(`./${fileName}`);
