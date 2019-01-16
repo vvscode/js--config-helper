@@ -4,14 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "input:process": "node index.js",
+    "output:clear": "rm -rf output/*",
+    "output:format": "npx prettier --parser typescript --write 'output/**/*.ts'",
+    "start": "npm run output:clear && npm run input:process && npm run output:format"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fs-extra": "^7.0.1",
     "glob": "^7.1.3",
+    "json5": "^2.1.0",
     "lodash": "^4.17.11",
+    "prettier": "^1.15.3",
     "request": "^2.88.0"
   }
 }
