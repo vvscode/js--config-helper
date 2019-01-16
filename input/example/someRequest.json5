@@ -1,0 +1,15 @@
+{
+  method: 'POST',
+  url: 'https://some-host.domain/ws/somePath/1.0/someEndpoint',
+  headers: {
+    'Postman-Token': 'xxxx-bd27-yyy-96bd-xxxx',
+    'cache-control': 'no-cache',
+    'Content-Type': 'application/json',
+    'Accept-Language': 'xxx-96f0-4407-xxx-yyy',
+    Accept: 'application/json',
+  },
+  body: {
+    RequestWrapper1: { RequestWrapper2: { fiels: 'value' } },
+  },
+  json: true,
+}
