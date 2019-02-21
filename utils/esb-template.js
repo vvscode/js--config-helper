@@ -22,7 +22,7 @@ const objectWithKeySorted = object =>
     }, {});
 
 const getRequestKeys = obj =>
-  objectWithKeySorted(
+  obj ? objectWithKeySorted(
     Object.keys(obj).reduce((acc, key) => {
       if (`${key}`.match(/^\d+$/)) {
         return acc;
@@ -33,7 +33,7 @@ const getRequestKeys = obj =>
       }
       return acc;
     }, {}),
-  );
+  ) : obj;
 
 const removeDummyWrappers = (obj, list = []) => {
   if (!_.isObject(obj)) {
@@ -49,7 +49,9 @@ const removeDummyWrappers = (obj, list = []) => {
 
 module.exports = (requestOptions, responseBody) => {
   responseBody = limitListSizes(responseBody);
+  console.log('responseBody', responseBody);
 
+  const method = (requestOptions.method || 'post').toLowerCase();
   const url = requestOptions.url.replace(/https?:\/\/[^/]+/, '${config.host}');
   const name = requestOptions.url.replace(/https?:\/\/[^/]+/, '');
   const esbRequestExample = JSON.stringify(requestOptions.body, null, 2);
@@ -88,7 +90,7 @@ module.exports = (requestOptions, responseBody) => {
   return `
   export default (config: IEsbDeclarationConfig): IEsbDefinition => ({
     name: '${name}',
-    method: 'post',
+    method: '${method}',
     url: \`${url}\`,
     defaultKey: config.REPLACE_WITH_CORRECT_NAME_OF_API_KEY,
     description: 'Looking for information =(',
