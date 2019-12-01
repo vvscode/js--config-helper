@@ -5,7 +5,7 @@ const _ = require('lodash');
 const request = require('request');
 const util = require('util');
 const fsExtra = require('fs-extra');
-const esbTemplate = require('./utils/esb-template');
+const configTemplate = require('./utils/config-template');
 
 const safeParse = str => {
   try {
@@ -27,7 +27,7 @@ const files = glob.sync('input/**/*.json5');
       const requestOptions = require(`./${fileName}`);
       const [_, responseBody] = await pRequest(requestOptions);
 
-      fsExtra.outputFileSync(fileName.replace('input/', 'output/').replace('.json5', '.ts'), esbTemplate(requestOptions, responseBody));
+      fsExtra.outputFileSync(fileName.replace('input/', 'output/').replace('.json5', '.ts'), configTemplate(requestOptions, responseBody));
       console.log(`[=] Processed "${fileName}"`)
     } catch(e) {
       console.log(`Error on processing ${fileName} `, e.message);
