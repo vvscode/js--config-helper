@@ -54,8 +54,8 @@ module.exports = (requestOptions, responseBody) => {
   const method = (requestOptions.method || 'post').toLowerCase();
   const url = requestOptions.url.replace(/https?:\/\/[^/]+/, '${config.host}');
   const name = requestOptions.url.replace(/https?:\/\/[^/]+/, '');
-  const esbRequestExample = JSON.stringify(requestOptions.body, null, 2);
-  const esbResponseExample = JSON.stringify(responseBody);
+  const configRequestExample = JSON.stringify(requestOptions.body, null, 2);
+  const configResponseExample = JSON.stringify(responseBody);
   const requestKeysConvertionDict = JSON.stringify(
     getRequestKeys(requestOptions.body),
     null,
@@ -88,14 +88,14 @@ module.exports = (requestOptions, responseBody) => {
       : `(obj: any) => obj.${responseWrappers.join('.')}`;
 
   return `
-  export default (config: IEsbDeclarationConfig): IEsbDefinition => ({
+  export default (config: IconfigDeclarationConfig): IconfigDefinition => ({
     name: '${name}',
     method: '${method}',
     url: \`${url}\`,
     defaultKey: config.REPLACE_WITH_CORRECT_NAME_OF_API_KEY,
     description: 'Looking for information =(',
-    esbRequestExample: ${esbRequestExample},
-    esbResponseExample: ${esbResponseExample},
+    configRequestExample: ${configRequestExample},
+    configResponseExample: ${configResponseExample},
   
     requestWrapper: ${requestWrapper},
     responseUnwrapper: ${responseUnwrapper},
